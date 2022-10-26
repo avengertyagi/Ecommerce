@@ -1,11 +1,11 @@
 @extends('admin.layouts.app')
 @section('title')
-    {{ 'Category' }}
+    {{ 'SubCategory' }}
 @endsection
 @section('content')
     <div class="card-header py-3">
-        <a href="{{ route('category.create') }}" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i>
-            @lang('Add Category')</a>
+        <a href="{{ route('subcategory.create') }}" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i>
+            @lang('Add SubCategory')</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -44,13 +44,13 @@
                                         @lang('Inactive')
                                     </a>
                                 @endif
-                                <a class="btn btn-sm btn-info" href="{{ route('category.edit', $data->id) }}">
+                                <a class="btn btn-sm btn-info" href="{{ route('subcategory.edit', $data->id) }}">
                                     <i class="fa fa-edit"></i> @lang('Edit')
                                 </a>
                                 <a class="btn btn-sm btn-danger" href="#!" onclick="deleteSupport({{ $data['id'] }})"
                                     title="Delete"><i class="fa fa-trash text-danger"></i>@lang('Delete')</a>
                                 <form role='form' id="deleteform_{{ $data['id'] }}"method='POST'
-                                    action="{{ route('category.destroy', $data['id']) }}" style='display:none;'>
+                                    action="{{ route('subcategory.destroy', $data['id']) }}" style='display:none;'>
                                     <input type='hidden' name='_method' value='delete'>"{{ @csrf_field() }}
                                 </form>
                             </td>
@@ -94,7 +94,7 @@
     function active(id) {
         Swal.fire({
             title: 'Are you sure ?',
-            text: "Do you want to active this category.",
+            text: "Do you want to active this subcategory.",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#00c6ff',
@@ -104,7 +104,7 @@
             if (result.value) {
                 $.ajax({
                     method: 'get',
-                    url: "{{ url('category/update/status/') }}/" + id,
+                    url: "{{ url('subcategory/update/status/') }}/" + id,
                     success: function(data) {
                         const Toast = Swal.mixin({
                             toast: true,
@@ -114,7 +114,7 @@
                         });
                         Toast.fire({
                             type: 'success',
-                            title: 'Category Activated Successfully.',
+                            title: 'SubCategory Activated Successfully.',
                         })
                         setTimeout(function() {
                             location.reload();
@@ -129,7 +129,7 @@
     function inactive(id) {
         Swal.fire({
             title: 'Are you sure ?',
-            text: "Do you want to inactive this category.",
+            text: "Do you want to inactive this subcategory.",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#00c6ff',
@@ -139,7 +139,7 @@
             if (result.value) {
                 $.ajax({
                     method: 'get',
-                    url: "{{ url('category/update/status/') }}/" + id,
+                    url: "{{ url('subcategory/update/status/') }}/" + id,
                     success: function(data) {
                         const Toast = Swal.mixin({
                             toast: true,
@@ -149,7 +149,7 @@
                         });
                         Toast.fire({
                             type: 'success',
-                            title: 'Category Inactivated Successfully.',
+                            title: 'SubCategory Inactivated Successfully.',
                         })
                         setTimeout(function() {
                             location.reload();

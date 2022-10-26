@@ -1,11 +1,11 @@
 @extends('admin.layouts.app')
 @section('title')
-    {{ 'Category' }}
+    {{ 'Product' }}
 @endsection
 @section('content')
     <div class="card-header py-3">
-        <a href="{{ route('category.create') }}" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i>
-            @lang('Add Category')</a>
+        <a href="{{ route('product.create') }}" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i>
+            @lang('Add Product')</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -13,7 +13,11 @@
                 <thead>
                     <tr>
                         <th>@lang('S.No')</th>
-                        <th>@lang('Name')</th>
+                        <th>@lang('Product ID')</th>
+                        <th>@lang('Category')</th>
+                        <th>@lang('SubCategory')</th>
+                        <th>@lang('Product')</th>
+                        <th>@lang('Image')</th>
                         <th>@lang('Date')</th>
                         <th>@lang('Status')</th>
                         <th>@lang('Action')</th>
@@ -23,7 +27,11 @@
                     @forelse($module_data as $key=> $data)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $data->name }}</td>
+                            <td>{{ $data->sku }}</td>
+                            <td>{{ $data->categories->name ?? '' }}</td>
+                            <td>{{ $data->subcategories->name ?? '' }}</td>
+                            <td>{{ $data->product_name ?? '' }}</td>
+                            <td><img src="{{ asset('images/product/' . $data->images) }}" width="50px" height="50px"></td>
                             <td>{{ date('d-m-Y', strtotime($data->created_at)) }}</td>
                             <td>
                                 @if ($data->status == 0)
@@ -44,13 +52,14 @@
                                         @lang('Inactive')
                                     </a>
                                 @endif
-                                <a class="btn btn-sm btn-info" href="{{ route('category.edit', $data->id) }}">
+                                <a class="btn btn-sm btn-info" href="{{ route('product.edit', $data->id) }}">
                                     <i class="fa fa-edit"></i> @lang('Edit')
                                 </a>
-                                <a class="btn btn-sm btn-danger" href="#!" onclick="deleteSupport({{ $data['id'] }})"
-                                    title="Delete"><i class="fa fa-trash text-danger"></i>@lang('Delete')</a>
+                                <a class="btn btn-sm btn-danger" href="#!"
+                                    onclick="deleteSupport({{ $data['id'] }})" title="Delete"><i
+                                        class="fa fa-trash text-danger"></i>@lang('Delete')</a>
                                 <form role='form' id="deleteform_{{ $data['id'] }}"method='POST'
-                                    action="{{ route('category.destroy', $data['id']) }}" style='display:none;'>
+                                    action="{{ route('product.destroy', $data['id']) }}" style='display:none;'>
                                     <input type='hidden' name='_method' value='delete'>"{{ @csrf_field() }}
                                 </form>
                             </td>
@@ -94,7 +103,7 @@
     function active(id) {
         Swal.fire({
             title: 'Are you sure ?',
-            text: "Do you want to active this category.",
+            text: "Do you want to active this product.",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#00c6ff',
@@ -104,7 +113,7 @@
             if (result.value) {
                 $.ajax({
                     method: 'get',
-                    url: "{{ url('category/update/status/') }}/" + id,
+                    url: "{{ url('product/update/status/') }}/" + id,
                     success: function(data) {
                         const Toast = Swal.mixin({
                             toast: true,
@@ -114,7 +123,7 @@
                         });
                         Toast.fire({
                             type: 'success',
-                            title: 'Category Activated Successfully.',
+                            title: 'Product Activated Successfully.',
                         })
                         setTimeout(function() {
                             location.reload();
@@ -129,7 +138,7 @@
     function inactive(id) {
         Swal.fire({
             title: 'Are you sure ?',
-            text: "Do you want to inactive this category.",
+            text: "Do you want to inactive this product.",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#00c6ff',
@@ -139,7 +148,7 @@
             if (result.value) {
                 $.ajax({
                     method: 'get',
-                    url: "{{ url('category/update/status/') }}/" + id,
+                    url: "{{ url('product/update/status/') }}/" + id,
                     success: function(data) {
                         const Toast = Swal.mixin({
                             toast: true,
@@ -149,7 +158,7 @@
                         });
                         Toast.fire({
                             type: 'success',
-                            title: 'Category Inactivated Successfully.',
+                            title: 'Product Inactivated Successfully.',
                         })
                         setTimeout(function() {
                             location.reload();

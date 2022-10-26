@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-    {{ 'Add Category' }}
+    {{ 'Edit Category' }}
 @endsection
 @section('content')
     <section class="section">
@@ -8,12 +8,12 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body mt-2">
-                        <form method="POST" action="{{ route('category.store') }}">
+                        <form method="PUT" action="{{ route('category.update',$data->id) }}">
                             @csrf
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
                                     <label for="inputNanme4" class="form-label">Name</label>
-                                    <input type="text" name="name" class="form-control" id="inputNanme4">
+                                    <input type="text" name="name" value="{{old('name',$data->name ?? '')}}" class="form-control" id="inputNanme4">
                                 </div>
                             </div>
                             <div class="text-center mt-2">

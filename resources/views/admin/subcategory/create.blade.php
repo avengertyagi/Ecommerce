@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-    {{ 'Add Category' }}
+    {{ 'Add SubCategory' }}
 @endsection
 @section('content')
     <section class="section">
@@ -8,9 +8,18 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body mt-2">
-                        <form method="POST" action="{{ route('category.store') }}">
+                        <form method="POST" action="{{ route('subcategory.store') }}">
                             @csrf
                             <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <label for="inputNanme4" class="form-label">Category Name</label>
+                                    <select class="form-select" name="category_name">
+                                        <option value=""selected disabled>Select an option</option>
+                                        @foreach ($category as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="col-md-6">
                                     <label for="inputNanme4" class="form-label">Name</label>
                                     <input type="text" name="name" class="form-control" id="inputNanme4">
