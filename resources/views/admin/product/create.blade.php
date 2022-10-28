@@ -19,6 +19,11 @@
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('category_name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="inputNanme4" class="form-label">SubCategory Name</label>
@@ -28,16 +33,31 @@
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('subcategory_name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
                                     <label for="inputNanme4" class="form-label">Product Name</label>
                                     <input type="text" name="product_name" class="form-control" id="inputNanme4">
+                                    @error('product_name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="inputNanme4" class="form-label">Image</label>
                                     <input type="file" name="images" class="form-control" id="inputNanme4">
+                                    @error('images')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row">

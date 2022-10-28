@@ -131,6 +131,11 @@
                                         <div class="col-md-8 col-lg-9">
                                             <input name="name" type="text" class="form-control" id="name"
                                                 value="{{ old('name', Auth::user()->name ?? '') }}">
+                                            @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -162,6 +167,11 @@
                                         <div class="col-md-8 col-lg-9">
                                             <input name="country" type="text" class="form-control" id="Country"
                                                 value="{{ old('country', Auth::user()->country ?? 'NA') }}">
+                                            @error('country')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -170,6 +180,11 @@
                                         <div class="col-md-8 col-lg-9">
                                             <input name="address" type="text" class="form-control" id="Address"
                                                 value="{{ old('address', Auth::user()->address ?? 'NA') }}">
+                                            @error('address')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -178,6 +193,11 @@
                                         <div class="col-md-8 col-lg-9">
                                             <input name="mobile" type="text" class="form-control" id="Phone"
                                                 value="{{ old('mobile', Auth::user()->mobile ?? 'NA') }}">
+                                            @error('mobile')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -186,6 +206,11 @@
                                         <div class="col-md-8 col-lg-9">
                                             <input name="email" type="email" class="form-control" id="Email"
                                                 value="{{ old('email', Auth::user()->email ?? 'NA') }}">
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 

@@ -14,6 +14,27 @@
                                 <div class="col-md-6">
                                     <label for="inputNanme4" class="form-label">Name</label>
                                     <input type="text" name="name" class="form-control" id="inputNanme4">
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row justify-content-center mt-2">
+                                <div class="col-md-6">
+                                    <label for="inputNanme4" class="form-label">parent category</label>
+                                    <select class="form-select" name="parent_id">
+                                        <option value=""selected disabled>Select an option</option>
+                                        @foreach ($categories as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('parent_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="text-center mt-2">
