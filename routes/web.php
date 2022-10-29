@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\HomeController as ControllersHomeController;
@@ -43,3 +44,7 @@ Route::get('subcategory/update/status/{id}', [SubcategoryController::class, 'sta
 //product
 Route::resource('product', ProductController::class);
 Route::get('product/update/status/{id}', [ProductController::class, 'status']);
+
+//city
+Route::resource('city', CityController::class);
+Route::get('city/table/list', [CityController::class, 'datatables']);

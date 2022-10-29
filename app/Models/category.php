@@ -12,5 +12,9 @@ class category extends Model
     protected $fillable = [
         'name',
     ];
+    public function products()
+    {
+        return $this->morphMany(Product::class, 'products');
+    }
 
 }

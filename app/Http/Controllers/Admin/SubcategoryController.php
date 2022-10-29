@@ -17,13 +17,15 @@ class SubcategoryController extends Controller
     }
     public function create()
     {
+        $sub_categories = Subcategory::where('parent_id', null)->orderby('name', 'asc')->get();
         $category = Category::select('id', 'name', 'status')->where('status', '1')->get();
-        return view('admin.subcategory.create', compact('category'));
+        return view('admin.subcategory.create', compact('category','sub_categories'));
     }
     public function store(Request $request)
     {
         $rules = [
             'category_name'  => ['required'],
+            'parent_id'      => ['required'],
             'name'           => ['required', 'max:20'],
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -33,6 +35,7 @@ class SubcategoryController extends Controller
             $data                    = new Subcategory();
             $data['name']            = $request['name'];
             $data['category_id']     = $request['category_name'];
+            $data['parent_id']       = $request['parent_id'];
             $data->save();
             return redirect('subcategory')->with('success', 'Subcategory saved successfully.');
         }
@@ -56,15 +59,17 @@ class SubcategoryController extends Controller
     }
     public function edit($id)
     {
+        $sub_categories = Subcategory::where('parent_id', null)->orderby('name', 'asc')->get();
         $data = Subcategory::with('categories')->find($id);
         $category = Category::select('id', 'name', 'status')->where('status', '1')->get();
-        return view('admin.subcategory.edit', compact('data', 'category'));
+        return view('admin.subcategory.edit', compact('data', 'category','sub_categories'));
     }
     public function update(Request $request, $id)
     {
         $rules = [
             'category_name'  => ['required'],
             'name'           => ['required', 'max:20'],
+            'parent_id'      => ['required'],
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -73,6 +78,7 @@ class SubcategoryController extends Controller
             $data                    = Subcategory::find($id);
             $data['name']            = $request['name'];
             $data['category_id']     = $request['category_name'];
+            $data['parent_id']       = $request['parent_id'];
             $data->update();
             return redirect('subcategory')->with('success', 'Subcategory saved successfully.');
         }

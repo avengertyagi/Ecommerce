@@ -1339,13 +1339,13 @@ label.radio input:checked+span {
 }
 
 .btn-danger {
-    background-color: #0d6efd !important;
-    border-color: #0d6efd !important
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important
 }
 
 .btn-danger:hover {
-    background-color: #0d6efd !important;
-    border-color: #0d6efd !important
+    background-color: #cb1225 !important;
+    border-color: #cb1225 !important
 }
 
 .btn-danger:focus {

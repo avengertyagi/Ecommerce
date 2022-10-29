@@ -54,21 +54,17 @@
                                     <input type='hidden' name='_method' value='delete'>"{{ @csrf_field() }}
                                 </form>
                             </td>
-
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="100%">
+                                <p class="text-danger text-center">No result found</p>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
-    </div>
-    </td>
-    </tr>
-@empty
-    <tr>
-        <td colspan="100%">
-            <p class="text-danger text-center">No result found</p>
-        </td>
-    </tr>
-    @endforelse
-    </tbody>
-    </table>
-    </div>
     </div>
 @endsection
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>

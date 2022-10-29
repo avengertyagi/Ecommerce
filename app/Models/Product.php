@@ -13,12 +13,20 @@ class Product extends Model
     protected $fillable = [
         'category_id', 'subcategory_id', 'product_name', 'images'
     ];
-    public function categories()
+    public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->morphToMany(category::class, 'catagorizable', 'categorizables');
     }
-    public function subcategories()
+    // public function categories()
+    // {
+    //     return $this->belongsTo(Category::class, 'category_id', 'id');
+    // }
+    // public function subcategories()
+    // {
+    //     return $this->belongsTo(Subcategory::class, 'subcategory_id', 'id');
+    // }
+    public function products()
     {
-        return $this->belongsTo(Subcategory::class, 'subcategory_id', 'id');
+        return $this->morphTo();
     }
 }

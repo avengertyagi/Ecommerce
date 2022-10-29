@@ -18,7 +18,8 @@
             <ul id="components-nav" class="nav-content collapse
             {{ Request::segment(1) == 'category' ? 'show' : '' }}
             {{ Request::segment(1) == 'subcategory' ? 'show' : '' }}
-            {{ Request::segment(1) == 'product' ? 'show' : '' }}"
+            {{ Request::segment(1) == 'product' ? 'show' : '' }}
+            {{ Request::segment(1) == 'city' ? 'show' : '' }}"
                 data-bs-parent="#sidebar-nav">
                 <li>
                     <a class="{{ Request::segment(1) == 'category' ? 'active' : '' }} collapse-item"
@@ -36,6 +37,12 @@
                     <a class="{{ Request::segment(1) == 'product' ? 'active' : '' }} collapse-item"
                         href="{{ route('product.index') }}">
                         <i class="bi bi-circle"></i><span>Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{ Request::segment(1) == 'city' ? 'active' : '' }} collapse-item"
+                        href="{{ route('city.index') }}">
+                        <i class="bi bi-circle"></i><span>City</span>
                     </a>
                 </li>
             </ul>

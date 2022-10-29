@@ -28,6 +28,22 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
+                                    <label for="inputNanme4" class="form-label">parent subcategory</label>
+                                    <select class="form-select" name="parent_id">
+                                        <option value=""selected disabled>Select an option</option>
+                                        @foreach ($sub_categories as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('parent_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <label for="inputNanme4" class="form-label">Name</label>
                                     <input type="text" name="name" value="{{ old('name', $data->name ?? '') }}"
                                         class="form-control" id="inputNanme4">

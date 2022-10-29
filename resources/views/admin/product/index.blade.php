@@ -31,7 +31,8 @@
                             <td>{{ $data->categories->name ?? '' }}</td>
                             <td>{{ $data->subcategories->name ?? '' }}</td>
                             <td>{{ $data->product_name ?? '' }}</td>
-                            <td><img src="{{ asset('images/product/' . $data->images) }}" width="50px" height="50px"></td>
+                            <td><img src="{{ asset('images/product/' . $data->images) }}" width="50px" height="50px">
+                            </td>
                             <td>{{ date('d-m-Y', strtotime($data->created_at)) }}</td>
                             <td>
                                 @if ($data->status == 0)
@@ -63,21 +64,17 @@
                                     <input type='hidden' name='_method' value='delete'>"{{ @csrf_field() }}
                                 </form>
                             </td>
-
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="100%">
+                                <p class="text-danger text-center">No result found</p>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
-    </div>
-    </td>
-    </tr>
-@empty
-    <tr>
-        <td colspan="100%">
-            <p class="text-danger text-center">No result found</p>
-        </td>
-    </tr>
-    @endforelse
-    </tbody>
-    </table>
-    </div>
     </div>
 @endsection
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>

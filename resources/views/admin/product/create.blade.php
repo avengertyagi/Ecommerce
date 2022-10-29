@@ -86,6 +86,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="inputNanme4" class="form-label mt-2">Description</label>
+                                    <textarea name="description" class="form-control" id="inputNanme4"></textarea>
+                                    @error('description')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="text-center mt-2">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
