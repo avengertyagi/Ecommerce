@@ -15,10 +15,10 @@
                                     <label for="inputNanme4" class="form-label">Category Name</label>
                                     <select class="form-select" name="category_name">
                                         <option value=""selected disabled>Select an option</option>
-                                        @foreach ($category as $item)
-                                            <option value="{{ $item->id }}">
-                                                {{ $item->name == $data->categories->name ? 'selected' : '' }}
-                                                {{ $item->name }}</option>
+                                        @foreach ($category as $value)
+                                            <option
+                                                value="{{ $value->id }}"{{ $value->name == $data->categories->name ? 'selected' : '' }}>
+                                                {{ $value->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('category_name')
@@ -31,8 +31,10 @@
                                     <label for="inputNanme4" class="form-label">parent subcategory</label>
                                     <select class="form-select" name="parent_id">
                                         <option value=""selected disabled>Select an option</option>
-                                        @foreach ($sub_categories as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @foreach ($sub_categories as $value)
+                                        <option
+                                        value="{{ $value->id }}"{{ $value->parent_id == $data->parent_id ? 'selected' : '' }}>
+                                        {{ $value->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('parent_id')

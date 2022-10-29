@@ -85,6 +85,15 @@
                                         </label>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="inputNanme4" class="form-label">Price</label>
+                                    <input type="text" name="price" class="form-control" id="inputNanme4">
+                                    @error('price')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">

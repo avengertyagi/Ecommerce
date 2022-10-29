@@ -8,17 +8,17 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body mt-2">
-                        <form method="PUT" action="{{ route('product.update', $data->id) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('product.update', $data->id) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
                                     <label for="inputNanme4" class="form-label">Category Name</label>
                                     <select class="form-select" name="category_name">
                                         <option value=""selected disabled>Select an option</option>
-                                        @foreach ($category as $item)
-                                            <option value="{{ $item->id }}">
-                                                {{ $item->name == $data->categories->name ? 'selected' : '' }}{{ $item->name }}
-                                            </option>
+                                        @foreach ($category as $value)
+                                            <option
+                                                value="{{ $value->id }}"{{ $value->name == $data->categories->name ? 'selected' : '' }}>
+                                                {{ $value->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('category_name')
@@ -31,10 +31,10 @@
                                     <label for="inputNanme4" class="form-label">SubCategory Name</label>
                                     <select class="form-select" name="subcategory_name">
                                         <option value=""selected disabled>Select an option</option>
-                                        @foreach ($sub_category as $item)
-                                            <option value="{{ $item->id }}">
-                                                {{ $item->name == $data->subcategories->name ? 'selected' : '' }}{{ $item->name }}
-                                            </option>
+                                        @foreach ($sub_category as $value)
+                                            <option
+                                                value="{{ $value->id }}"{{ $value->name == $data->subcategories->name ? 'selected' : '' }}>
+                                                {{ $value->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('subcategory_name')
@@ -95,6 +95,27 @@
                                             <span>XXL</span>
                                         </label>
                                     </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputNanme4" class="form-label">Price</label>
+                                    <input type="text" name="price" value="{{ old('price', $data->price) }}"
+                                        class="form-control" id="inputNanme4">
+                                    @error('price')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="inputNanme4" class="form-label mt-2">Description</label>
+                                    <textarea name="description" class="form-control" id="inputNanme4">{{ old('description', $data->description) }}</textarea>
+                                    @error('description')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="text-center mt-2">

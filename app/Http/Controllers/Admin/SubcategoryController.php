@@ -80,7 +80,7 @@ class SubcategoryController extends Controller
             $data['category_id']     = $request['category_name'];
             $data['parent_id']       = $request['parent_id'];
             $data->update();
-            return redirect('subcategory')->with('success', 'Subcategory saved successfully.');
+            return redirect()->route('subcategory.index')->with('success', 'Subcategory saved successfully.');
         }
     }
 }

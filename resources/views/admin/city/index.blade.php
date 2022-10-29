@@ -5,16 +5,16 @@
 @section('content')
     <div class="card-body">
         <div class="row">
-            <form method="GET" action="{{route('')}}">
-            <div class="col-md-4">
-                <div class="input-group">
-                    <input name="search" value="{{ old('search') }}" type="text" class="form-control"
-                        placeholder="Search for...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary p-2" type="submit">Search</button>
-                    </span>
+            <form method="GET" action="{{ route('citySearch') }}">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input name="search" value="{{ old('search') }}" type="text" class="form-control"
+                            placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary p-2" type="submit">Search</button>
+                        </span>
+                    </div>
                 </div>
-            </div>
             </form>
         </div>
         <div class="table-responsive">

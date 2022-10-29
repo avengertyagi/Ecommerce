@@ -20,4 +20,11 @@ class CityController extends Controller
             ->addIndexColumn()
             ->make(true);
     }
+    public function citySearch(Request $request)
+    {
+        if ($request->has('search')) {
+            $details = City::search($request->input('search'))->toArray();
+        }
+        return view('admin.city.index', compact('details'));
+    }
 }

@@ -33,7 +33,7 @@ class CategoryController extends Controller
             $data['name']        = $request['name'];
             $data['parent_id']   = $request['parent_id'];
             $data->save();
-            return redirect('category')->with('success', 'Category saved successfully.');
+            return redirect()->route('category.index')->with('success', 'Category saved successfully.');
         }
     }
     public function status($id)
@@ -78,7 +78,7 @@ class CategoryController extends Controller
             $data['name']        = $request['name'];
             $data['parent_id']   = $request['parent_id'];
             $data->update();
-            return redirect('category')->with('success', 'Category update successfully.');
+            return redirect()->route('category.index')->with('success', 'Category update successfully.');
         }
     }
 }

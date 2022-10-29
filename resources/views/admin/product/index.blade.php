@@ -31,7 +31,7 @@
                             <td>{{ $data->categories->name ?? '' }}</td>
                             <td>{{ $data->subcategories->name ?? '' }}</td>
                             <td>{{ $data->product_name ?? '' }}</td>
-                            <td><img src="{{ asset('images/product/' . $data->images) }}" width="50px" height="50px">
+                            <td><img src="{{ asset('storage/images/product/' . $data->images) }}" width="50px" height="50px">
                             </td>
                             <td>{{ date('d-m-Y', strtotime($data->created_at)) }}</td>
                             <td>

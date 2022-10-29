@@ -8,7 +8,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body mt-2">
-                        <form method="PUT" action="{{ route('category.update', $data->id) }}">
+                        <form method="POST" action="{{ route('category.update', $data->id) }}">
                             @csrf
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
@@ -27,8 +27,10 @@
                                     <label for="inputNanme4" class="form-label">parent category</label>
                                     <select class="form-select" name="parent_id">
                                         <option value=""selected disabled>Select an option</option>
-                                        @foreach ($categories as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @foreach ($categories as $value)
+                                        <option
+                                        value="{{ $value->id }}"{{ $value->parent_id == $data->parent_id ? 'selected' : '' }}>
+                                        {{ $value->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('parent_id')

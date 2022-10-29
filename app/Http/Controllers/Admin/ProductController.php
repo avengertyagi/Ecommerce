@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Product;
 use App\Models\category;
 use App\Models\Subcategory;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -14,8 +15,8 @@ class ProductController extends Controller
     public function index()
     {
         $module_data = Product::select('id', 'sku', 'category_id', 'subcategory_id', 'product_name', 'images', 'status', 'created_at')
-        ->with('category')
-        ->get();
+            ->with('category', 'categories', 'subcategories')
+            ->get();
         return view('admin.product.index', compact('module_data'));
     }
     public function create()
@@ -33,20 +34,20 @@ class ProductController extends Controller
             'images'             => ['required'],
             'size'              => ['required'],
             'description'       => ['required'],
+            'price'             => ['required'],
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         } else {
             $data                = new Product();
-            if ($request->hasfile('images')) {
-                $file = $request->file('images');
+            if ($request->hasFile('images')) {
                 try {
-                    $extension = $file->getClientoriginalExtension();
-                    $destination = 'images/product';
-                    $filename = time() . '.' . $extension;
-                    $path = $request->images->move($destination, $filename);
-                    $data['images'] = $filename;
+                    $slug = Str::slug($request['product_name'], '-');
+                    $Image = $slug . '-product-' . time() . '.' . $request->file('images')->guessExtension();
+                    $path = '/images/product';
+                    $request->file('images')->storeAs($path, $Image, 'public');
+                    $data['images'] = $Image;
                 } catch (\Exception $e) {
                     return back()->with('error', 'Could not upload your file', $e->getMessage());
                 }
@@ -56,13 +57,13 @@ class ProductController extends Controller
             $data['product_name']       = $request['product_name'];
             $data['size']               = $request['size'];
             $data['description']        = $request['description'];
-        
+            $data['price']              = $request['price'];
             $data->save();
-        $cat=[];
-        array_push($cat,$request['category_name']);
-        array_push($cat,$request['subcategory_name']);
-        $data->category()->sync($cat);
-            return redirect('product')->with('success', 'Product saved successfully.');
+            $cat = [];
+            array_push($cat, $request['category_name']);
+            array_push($cat, $request['subcategory_name']);
+            $data->category()->sync($cat);
+            return redirect()->route('product.index')->with('success', 'Product saved successfully.');
         }
     }
     public function status($id)
@@ -87,9 +88,9 @@ class ProductController extends Controller
         $data = Product::with('categories', 'subcategories')->find($id);
         $category = category::select('id', 'name', 'status')->where('status', '1')->get();
         $sub_category = Subcategory::select('id', 'category_id', 'name', 'status')->where('status', '1')->get();
-        return view('admin.product.edit', compact('data','category','sub_category'));
+        return view('admin.product.edit', compact('data', 'category', 'sub_category'));
     }
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $rules = [
             'category_name'     => ['required'],
@@ -97,6 +98,7 @@ class ProductController extends Controller
             'product_name'      => ['required'],
             'images'             => ['nullable'],
             'size'              => ['required'],
+            'price'             => ['required'],
             'description'       => ['required'],
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -104,18 +106,17 @@ class ProductController extends Controller
             return back()->withErrors($validator)->withInput();
         } else {
             $data = Product::find($id);
-            if ($request->hasfile('images')) {
-                $file = $request->file('images');
-                $privious_image = 'images/product' . $data['image'];
-                if (file_exists($privious_image)) {
-                    @unlink($privious_image);
+            if ($request->hasFile('images')) {
+                $files = ('storage/images/product/' . $data->images);
+                if (file_exists($files)) {
+                    @unlink($files);
                 }
                 try {
-                    $extension = $file->getClientoriginalExtension();
-                    $destination = 'images/product';
-                    $filename = rand(1111, 9999) . '.' . $extension;
-                    $path = $request->images->move($destination, $filename);
-                    $data['images'] = $filename;
+                    $slug = Str::slug($request->product_name, '-');
+                    $Image = $slug . '-product-' . time() . '.' . $request->file('images')->guessExtension();
+                    $path = '/images/product';
+                    $request->file('images')->storeAs($path, $Image, 'public');
+                    $data['images']  = $Image;
                 } catch (\Exception $e) {
                     return back()->with('error', 'Could not upload your file', $e->getMessage());
                 }
@@ -124,9 +125,10 @@ class ProductController extends Controller
             $data['subcategory_id']     = $request['subcategory_name'];
             $data['product_name']       = $request['product_name'];
             $data['size']               = $request['size'];
+            $data['price']              = $request['price'];
             $data['description']        = $request['description'];
             $data->update();
-            return redirect('product')->with('success', 'Product update successfully.');
+            return redirect()->route('product.index')->with('success', 'Product update successfully.');
         }
     }
 }
